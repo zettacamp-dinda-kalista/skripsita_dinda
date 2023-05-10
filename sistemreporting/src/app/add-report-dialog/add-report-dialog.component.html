@@ -1,8 +1,77 @@
-<h2 mat-dialog-title>Dialog Title</h2>
-<div mat-dialog-content>
-  <p>Dialog content goes here.</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCloseClick()">Close</button>
-  <button mat-button (click)="onCloseClick()" cdkFocusInitial>Save</button>
-</div>
+<h2 mat-dialog-title>{{ isEdit ? 'Edit' : 'Add' }} Report</h2>
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading"></mat-progress-bar>
+
+<mat-dialog-content [formGroup]="form">
+      <div class="form-field-wrapper">
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Ref ID</mat-label>
+                  <input matInput formControlName="ref_id">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Section</mat-label>
+                  <input matInput formControlName="section">
+            </mat-form-field>
+      </div>
+      <div class="form-field-wrapper">
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Reported date</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="reported_date">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Due date</mat-label>
+                  <input matInput [matDatepicker]="picker2" formControlName="due_date">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+      </div>
+      <div class="form-field-wrapper">
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Severity</mat-label>
+                  <mat-select formControlName="severity">
+                        <mat-option *ngFor="let severity of severities" [value]="severity">
+                              {{ severity }}
+                        </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status">
+                              {{ status }}
+                        </mat-option>
+                  </mat-select>
+            </mat-form-field>
+      </div>
+      <div class="form-field-wrapper">
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Dev Type</mat-label>
+                  <mat-select formControlName="dev_type">
+                        <mat-option value="">None</mat-option>
+                        <mat-option *ngFor="let type of types" [value]="type">
+                              {{ type }}
+                        </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>ETA</mat-label>
+                  <input matInput formControlName="eta">
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Actual</mat-label>
+                  <input matInput formControlName="actual">
+            </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline" floatLabel="always" class="form-field-description">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="bug_description"></textarea>
+      </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close [disabled]="isLoading">Close</button>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="isLoading || form.invalid">
+            {{ isEdit ? 'Edit' : 'Add' }}
+      </button>
+</mat-dialog-actions>
