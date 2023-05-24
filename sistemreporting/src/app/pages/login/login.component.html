@@ -1,0 +1,20 @@
+<form class="form" [formGroup]="form">
+    <h2 class="form-title">Welcome.</h2>
+    
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error>{{ emailErrorMessage }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>password</mat-label>
+        <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="pass">
+        <button mat-icon-button matSuffix (click)="isPasswordVisible = !isPasswordVisible">
+            <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>{{ passErrorMessage }}</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="form-submit" (click)="submit()">Login</button>
+</form>

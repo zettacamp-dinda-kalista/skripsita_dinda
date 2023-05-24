@@ -1,0 +1,38 @@
+.toolbar {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown {
+    position: relative;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-input {
+    font-size: 16px;
+    font-family: inherit;
+    color: inherit;
+    line-height: 1;
+    padding: 10px 40px 10px 10px;
+    outline: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    transition: 0.2s;
+}
+
+.dropdown-input:focus ~ .dropdown-icon {
+    transform: rotate(180deg);
+}

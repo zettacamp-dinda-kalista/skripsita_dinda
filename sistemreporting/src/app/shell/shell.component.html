@@ -1,6 +1,26 @@
-<div class="container">
-    <app-topbar></app-topbar>
-    <main class="content">
-        <router-outlet></router-outlet>
-    </main>
+<mat-toolbar color="primary" class="topbar">
+    <h1 class="topbar-title">Bug Report</h1>
+    
+    <nav class="nav">
+        <a href="" class="nav-item">Issues</a>
+        <a href="" class="nav-item">Features</a>
+        <a href="" class="nav-item">Users</a>
+    </nav>
+
+    <img class="avatar" [matMenuTriggerFor]="menu" src="https://plus.unsplash.com/premium_photo-1675034393509-788f2947d709?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="avatar">
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Redial</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+<div class="content">
+    <router-outlet></router-outlet>
 </div>
