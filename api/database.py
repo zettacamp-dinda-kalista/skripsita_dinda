@@ -1,12 +1,18 @@
 from pymongo.mongo_client import MongoClient
 
-uri = "mongodb+srv://dindakalista14:%4008Maret2001@cluster0.xqxouzt.mongodb.net/reporting?retryWrites=true&w=majority"
+db_user = 'dinda_kalista'
+db_pass = 'dinda_kalista'
+db_name = 'skripsi'
+db_uri  = f'mongodb+srv://{db_user}:{db_pass}@cluster0.kbjixcf.mongodb.net/{db_name}?retryWrites=true&w=majority'
 
-# Create a new client and connect to the server
-client = MongoClient(uri)
-# Send a ping to confirm a successful connection
+db_client = MongoClient(db_uri)
+
 try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
+    db = db_client['skripsi']
+    features = db['features']
+
+    # features.insert_one({
+    #     'name': 'dinda-2'
+    # })
 except Exception as e:
     print(e)

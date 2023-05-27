@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { IssueDialogComponent } from './issue-dialog/issue-dialog.component';
+
 
 @Component({
   selector: 'app-issue',
@@ -25,13 +28,22 @@ export class IssueComponent {
 
   // @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
+  constructor (private dialog: MatDialog) {
 
+  }
 
   ngOnInit() {
 
   }
-
   
+   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(IssueDialogComponent, {
+      width: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
 
   // helper methods
 
