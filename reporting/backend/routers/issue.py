@@ -12,16 +12,13 @@ router = APIRouter(prefix="/issue")
 @router.post("/", response_description="Create new issue", status_code=status.HTTP_201_CREATED, response_model=IssueResponseModel)
 def create_issue(request: Request, issue: IssueCreateModel = Body(...)):
     try:
-        print(issue)
-        issue = jsonable_encoder(issue)
+        issue = issue.dict()
         new_issue = request.app.database["issues"].insert_one(issue)
 
         created_issue = request.app.database["issues"].find_one(
             {"_id": new_issue.inserted_id}
         )
 
-        # convert ObjectId to string
-        created_issue["_id"] = str(created_issue["_id"])
         return created_issue
 
     except Exception as error:
@@ -43,8 +40,6 @@ def update_issue(id: str, request: Request, issue: Optional[IssueUpdateModel] = 
             {"_id": ObjectId(id)}
         )
 
-        # convert ObjectId to string
-        updated_issue["_id"] = str(updated_issue["_id"])
         return updated_issue
 
     except Exception as error:
@@ -56,9 +51,26 @@ def update_issue(id: str, request: Request, issue: Optional[IssueUpdateModel] = 
 def get_all_issue(request: Request):
     try:
         issues = list(request.app.database["issues"].find({}))
-
-        # Aggregation pipeline
-        pipeline = [
+        issuese = list(request.app.database["issues"].aggregate([
+            {
+                "$lookup": {
+                    "from": "features",
+                    "localField": "feature_id",
+                    "foreignField": "_id",
+                    "as": "feature"
+                }
+            },
+            ,
+            {
+                "$addFields": {
+                    "customerId": { "$arrayElemAt": ["$customerData", 0] }
+                }
+            },
+            {
+                "$project": {
+                    "customerData": 0
+                }
+            }
             {
                 "$lookup": {
                     "from": "users",
@@ -66,17 +78,26 @@ def get_all_issue(request: Request):
                     "foreignField": "_id",
                     "as": "reporter"
                 }
+            },
+            {
+                "$lookup": {
+                    "from": "users",
+                    "localField": "dev_id",
+                    "foreignField": "_id",
+                    "as": "dev"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "users",
+                    "localField": "qa_id",
+                    "foreignField": "_id",
+                    "as": "qa"
+                }
             }
-        ]
+        ]))
 
-        # Melakukan aggregation
-        result = list(request.app.database["issues"].aggregate(pipeline))
-
-        print(result)
-
-        # convert ObjectId to string
-        for issue in issues:
-            issue["_id"] = str(issue["_id"])
+        print(issuese)
         
         return issues
 
