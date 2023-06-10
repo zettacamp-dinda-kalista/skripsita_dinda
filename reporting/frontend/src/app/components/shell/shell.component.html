@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="toolbar">
+    <span class="toolbar-title">Bug Report System</span>
+    
+    <app-nav class="toolbar-nav"></app-nav>
+
+    <div class="toolbar-user">
+        {{ currentUser?.first_name + ' ' + currentUser?.last_name }}
+    </div>
+
+    <button mat-icon-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>

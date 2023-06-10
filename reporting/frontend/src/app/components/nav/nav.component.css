@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: normal;
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+.nav-link.nav-link-active {
+    opacity: 1;
+}

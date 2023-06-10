@@ -1,0 +1,22 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isWaitingResponse"></mat-progress-bar>
+
+<form class="form" [formGroup]="form">
+      <h2 class="form-heading">Welcome.</h2>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-error>{{ emailErrorMessage }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>password</mat-label>
+            <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password">
+            <button mat-icon-button matSuffix type="button" (click)="isPasswordVisible = !isPasswordVisible">
+                  <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>{{ passErrorMessage }}</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" (click)="submit()" [disabled]="isWaitingResponse">Login</button>
+</form>

@@ -1,4 +1,4 @@
-from pymongo.mongo_client import MongoClient
+from pymongo.mongo_client import MongoClientg
 
 db_user = 'dinda_kalista'
 db_pass = 'dinda_kalista'

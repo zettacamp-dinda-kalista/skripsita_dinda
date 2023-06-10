@@ -1,0 +1,31 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.toolbar {
+    /* justify-content: space-between; */
+}
+
+.toolbar-title {
+    margin-right: auto;
+}
+
+.toolbar-nav {
+    margin-right: auto;
+}
+
+.toolbar-user {
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
